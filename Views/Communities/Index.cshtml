@@ -1,0 +1,57 @@
+@model CommunitiesViewModel
+@{ 
+    ViewBag.Title = "Communities";
+}
+
+<h1>Index</h1>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Budget
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var community in Model.Communities)
+        {
+            <tr>
+                <td>@community.Title</td>
+                <td>@string.Format("${0:0.00}", community.Budget)</td>
+                <td>
+                    <a href="/Communities/Index/@community.ID">Select</a> |
+                    <a href="/Advertisements/Index/@community.ID">Ads</a> |
+                    <a href="/Communities/Edit/@community.ID">Edit</a> |
+                    <a href="/Communities/Details/@community.ID">Details</a> |
+                    <a href="/Communities/Delete/@community.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.Selected != null)
+{
+    <h3>
+        Members of the community
+    </h3>
+    <table class="table">
+        <tr>
+            <th> Name </th>
+        </tr>
+        @foreach(var membership in Model.Selected.Membership)
+        {
+            <tr>
+                <td>@membership.Student.FullName</td>
+            </tr>
+        }
+    </table>
+}

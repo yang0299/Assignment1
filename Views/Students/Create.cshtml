@@ -1,0 +1,28 @@
+@model Student
+
+@{
+    ViewBag.Title = "Create";
+}
+<h1>Create</h1>
+
+<h4>Student</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+
+        @using (Html.BeginForm(FormMethod.Post))
+        {
+            @Html.EditorFor(m => m.LastName)
+            @Html.EditorFor(m => m.FirstName)
+            @Html.EditorFor(m => m.EnrollmentDate)
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        }
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -1,0 +1,63 @@
+@model StudentsViewModel
+
+@{
+    ViewBag.Title = "Students";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Last Name
+            </th>
+            <th>
+                First Name
+            </th>
+            <th>
+                Enrollment Date
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ foreach (var student in Model.Students)
+            {
+                <tr>
+                    <td>@student.FirstName</td>
+                    <td>@student.LastName</td>
+                    <td>@string.Format("{0:yyyy-MM-dd}", student.EnrollmentDate)</td>
+                    <td>
+                        <a asp-controller="Students" asp-action="Index" asp-route-id="@student.ID">Select</a> |
+                        <a asp-controller="Students" asp-action="Edit" asp-route-id="@student.ID">Edit</a> |
+                        <a asp-controller="Students" asp-action="EditMemberships" asp-route-id="@student.ID">Edit Memberships</a> |
+                        <a asp-controller="Students" asp-action="Details" asp-route-id="@student.ID">Details</a> |
+                        <a asp-controller="Students" asp-action="Delete" asp-route-id="@student.ID">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@{ if (Model.Selected != null)
+    {
+        <h3>
+            Member of the following communities
+        </h3>
+        <table class="table">
+            <tr>
+                <th>Name</th>
+            </tr>
+            @{ foreach (var membership in Model.Selected.Membership)
+                {
+                    <tr><td>@membership.Community.Title </td></tr>
+                }
+            }
+        </table>
+    }
+}
